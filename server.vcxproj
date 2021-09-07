@@ -1,0 +1,256 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{8C901971-22DF-4574-B399-0A544ECD51E1}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>server</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IntDir>$(Configuration)\server\</IntDir>
+    <TargetName>q2proded</TargetName>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>q2proded64</TargetName>
+    <IntDir>$(Configuration)\server\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Configuration)\server\</IntDir>
+    <TargetName>q2proded</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>q2proded64</TargetName>
+    <IntDir>$(Configuration)\server\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <BrowseInformation>true</BrowseInformation>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>
+      </DisableSpecificWarnings>
+      <BrowseInformation>true</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>
+      </EnableCOMDATFolding>
+      <OptimizeReferences>
+      </OptimizeReferences>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
+      <AdditionalDependencies>ws2_32.lib;winmm.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\client\null.c" />
+    <ClCompile Include="src\common\bsp.c" />
+    <ClCompile Include="src\common\cmd.c" />
+    <ClCompile Include="src\common\cmodel.c" />
+    <ClCompile Include="src\common\common.c" />
+    <ClCompile Include="src\common\cvar.c" />
+    <ClCompile Include="src\common\error.c" />
+    <ClCompile Include="src\common\field.c" />
+    <ClCompile Include="src\common\fifo.c" />
+    <ClCompile Include="src\common\files.c" />
+    <ClCompile Include="src\common\math.c" />
+    <ClCompile Include="src\common\mdfour.c" />
+    <ClCompile Include="src\common\msg.c" />
+    <ClCompile Include="src\common\net\chan.c" />
+    <ClCompile Include="src\common\net\net.c" />
+    <ClCompile Include="src\common\pmove.c" />
+    <ClCompile Include="src\common\prompt.c" />
+    <ClCompile Include="src\common\sizebuf.c" />
+    <ClCompile Include="src\common\utils.c" />
+    <ClCompile Include="src\common\zone.c" />
+    <ClCompile Include="src\server\commands.c" />
+    <ClCompile Include="src\server\entities.c" />
+    <ClCompile Include="src\server\game.c" />
+    <ClCompile Include="src\server\init.c" />
+    <ClCompile Include="src\server\main.c" />
+    <ClCompile Include="src\server\send.c" />
+    <ClCompile Include="src\server\user.c" />
+    <ClCompile Include="src\server\world.c" />
+    <ClCompile Include="src\shared\shared.c" />
+    <ClCompile Include="src\windows\debug.c" />
+    <ClCompile Include="src\windows\hunk.c" />
+    <ClCompile Include="src\windows\system.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\common\bsp.h" />
+    <ClInclude Include="inc\common\cmd.h" />
+    <ClInclude Include="inc\common\cmodel.h" />
+    <ClInclude Include="inc\common\common.h" />
+    <ClInclude Include="inc\common\cvar.h" />
+    <ClInclude Include="inc\common\error.h" />
+    <ClInclude Include="inc\common\field.h" />
+    <ClInclude Include="inc\common\fifo.h" />
+    <ClInclude Include="inc\common\files.h" />
+    <ClInclude Include="inc\common\math.h" />
+    <ClInclude Include="inc\common\mdfour.h" />
+    <ClInclude Include="inc\common\msg.h" />
+    <ClInclude Include="inc\common\net\chan.h" />
+    <ClInclude Include="inc\common\net\net.h" />
+    <ClInclude Include="inc\common\pmove.h" />
+    <ClInclude Include="inc\common\prompt.h" />
+    <ClInclude Include="inc\common\protocol.h" />
+    <ClInclude Include="inc\common\sizebuf.h" />
+    <ClInclude Include="inc\common\tests.h" />
+    <ClInclude Include="inc\common\utils.h" />
+    <ClInclude Include="inc\common\zone.h" />
+    <ClInclude Include="inc\format\bsp.h" />
+    <ClInclude Include="inc\format\pak.h" />
+    <ClInclude Include="inc\server\mvd\protocol.h" />
+    <ClInclude Include="inc\server\server.h" />
+    <ClInclude Include="inc\shared\game.h" />
+    <ClInclude Include="inc\shared\list.h" />
+    <ClInclude Include="inc\shared\platform.h" />
+    <ClInclude Include="inc\shared\shared.h" />
+    <ClInclude Include="inc\system\hunk.h" />
+    <ClInclude Include="inc\system\system.h" />
+    <ClInclude Include="src\common\net\win.h" />
+    <ClInclude Include="src\server\server.h" />
+    <ClInclude Include="src\windows\glimp.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\windows\res\q2proded.rc" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

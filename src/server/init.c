@@ -391,7 +391,7 @@ void SV_InitGame(unsigned mvd_spawn)
             Cvar_SetInteger(sv_maxclients, CLIENTNUM_RESERVED, FROM_CODE);
         }
     } else if (Cvar_VariableInteger("coop")) {
-        if (sv_maxclients->integer <= 1 || sv_maxclients->integer > 4)
+        if (sv_maxclients->integer <= 1 || sv_maxclients->integer > MAX_CLIENTS)
             Cvar_Set("maxclients", "4");
     } else {    // non-deathmatch, non-coop is one player
         Cvar_FullSet("maxclients", "1", CVAR_SERVERINFO | CVAR_LATCH, FROM_CODE);

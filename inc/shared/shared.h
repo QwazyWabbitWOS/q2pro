@@ -23,7 +23,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // shared.h -- included first by ALL program modules
 //
 
-#if HAVE_CONFIG_H
+#if defined HAVE_CONFIG_H || defined _MSC_VER
 #include "config.h"
 #endif
 
@@ -271,7 +271,7 @@ static inline void TransposeAxis(vec3_t axis[3])
 
 static inline void RotatePoint(vec3_t point, vec3_t axis[3])
 {
-    vec3_t temp;
+    vec3_t temp = { 0 };
 
     VectorCopy(point, temp);
     point[0] = DotProduct(temp, axis[0]);

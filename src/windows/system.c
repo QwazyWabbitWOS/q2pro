@@ -922,11 +922,15 @@ void Sys_QueueAsyncWork(asyncwork_t *work)
     if (!work_initialized) {
         InitializeCriticalSection(&work_crit);
         work_event = CreateEvent(NULL, FALSE, FALSE, NULL);
-        if (!work_event)
+        if (!work_event) {
             Sys_Error("Couldn't create async work event");
+            return;
+        }
         work_thread = CreateThread(NULL, 0, thread_func, NULL, 0, NULL);
-        if (!work_thread)
+        if (!work_thread) {
             Sys_Error("Couldn't create async work thread");
+            return;
+        }
         work_initialized = true;
     }
 

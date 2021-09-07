@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3A4E6202-FC6D-4970-9067-1C5E6A162945}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>baseq2</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <TargetName>$(ProjectName)x86</TargetName>
+    <IntDir>$(Configuration)\game\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <TargetName>$(ProjectName)x86_64</TargetName>
+    <IntDir>$(Configuration)\game\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <TargetName>$(ProjectName)x86</TargetName>
+    <IntDir>$(Configuration)\game\</IntDir>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <TargetName>$(ProjectName)x86_64</TargetName>
+    <IntDir>$(Configuration)\game\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <ModuleDefinitionFile>game.def</ModuleDefinitionFile>
+    </Link>
+    <ResourceCompile>
+      <PreprocessorDefinitions>HAVE_CONFIG_H=1</PreprocessorDefinitions>
+    </ResourceCompile>
+    <ResourceCompile>
+      <AdditionalIncludeDirectories>.\VC\inc</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="src\baseq2\g_ai.c" />
+    <ClCompile Include="src\baseq2\g_chase.c" />
+    <ClCompile Include="src\baseq2\g_cmds.c" />
+    <ClCompile Include="src\baseq2\g_combat.c" />
+    <ClCompile Include="src\baseq2\g_func.c" />
+    <ClCompile Include="src\baseq2\g_items.c" />
+    <ClCompile Include="src\baseq2\g_main.c" />
+    <ClCompile Include="src\baseq2\g_misc.c" />
+    <ClCompile Include="src\baseq2\g_monster.c" />
+    <ClCompile Include="src\baseq2\g_phys.c" />
+    <ClCompile Include="src\baseq2\g_ptrs.c" />
+    <ClCompile Include="src\baseq2\g_save.c" />
+    <ClCompile Include="src\baseq2\g_spawn.c" />
+    <ClCompile Include="src\baseq2\g_svcmds.c" />
+    <ClCompile Include="src\baseq2\g_target.c" />
+    <ClCompile Include="src\baseq2\g_trigger.c" />
+    <ClCompile Include="src\baseq2\g_turret.c" />
+    <ClCompile Include="src\baseq2\g_utils.c" />
+    <ClCompile Include="src\baseq2\g_weapon.c" />
+    <ClCompile Include="src\baseq2\m_actor.c" />
+    <ClCompile Include="src\baseq2\m_berserk.c" />
+    <ClCompile Include="src\baseq2\m_boss2.c" />
+    <ClCompile Include="src\baseq2\m_boss3.c" />
+    <ClCompile Include="src\baseq2\m_boss31.c" />
+    <ClCompile Include="src\baseq2\m_boss32.c" />
+    <ClCompile Include="src\baseq2\m_brain.c" />
+    <ClCompile Include="src\baseq2\m_chick.c" />
+    <ClCompile Include="src\baseq2\m_flipper.c" />
+    <ClCompile Include="src\baseq2\m_float.c" />
+    <ClCompile Include="src\baseq2\m_flyer.c" />
+    <ClCompile Include="src\baseq2\m_gladiator.c" />
+    <ClCompile Include="src\baseq2\m_gunner.c" />
+    <ClCompile Include="src\baseq2\m_hover.c" />
+    <ClCompile Include="src\baseq2\m_infantry.c" />
+    <ClCompile Include="src\baseq2\m_insane.c" />
+    <ClCompile Include="src\baseq2\m_medic.c" />
+    <ClCompile Include="src\baseq2\m_move.c" />
+    <ClCompile Include="src\baseq2\m_mutant.c" />
+    <ClCompile Include="src\baseq2\m_parasite.c" />
+    <ClCompile Include="src\baseq2\m_soldier.c" />
+    <ClCompile Include="src\baseq2\m_supertank.c" />
+    <ClCompile Include="src\baseq2\m_tank.c" />
+    <ClCompile Include="src\baseq2\p_client.c" />
+    <ClCompile Include="src\baseq2\p_hud.c" />
+    <ClCompile Include="src\baseq2\p_trail.c" />
+    <ClCompile Include="src\baseq2\p_view.c" />
+    <ClCompile Include="src\baseq2\p_weapon.c" />
+    <ClCompile Include="src\shared\m_flash.c" />
+    <ClCompile Include="src\shared\shared.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\shared\game.h" />
+    <ClInclude Include="inc\shared\list.h" />
+    <ClInclude Include="inc\shared\platform.h" />
+    <ClInclude Include="inc\shared\shared.h" />
+    <ClInclude Include="src\baseq2\g_local.h" />
+    <ClInclude Include="src\baseq2\g_ptrs.h" />
+    <ClInclude Include="src\baseq2\m_actor.h" />
+    <ClInclude Include="src\baseq2\m_berserk.h" />
+    <ClInclude Include="src\baseq2\m_boss2.h" />
+    <ClInclude Include="src\baseq2\m_boss31.h" />
+    <ClInclude Include="src\baseq2\m_boss32.h" />
+    <ClInclude Include="src\baseq2\m_brain.h" />
+    <ClInclude Include="src\baseq2\m_chick.h" />
+    <ClInclude Include="src\baseq2\m_flipper.h" />
+    <ClInclude Include="src\baseq2\m_float.h" />
+    <ClInclude Include="src\baseq2\m_flyer.h" />
+    <ClInclude Include="src\baseq2\m_gladiator.h" />
+    <ClInclude Include="src\baseq2\m_gunner.h" />
+    <ClInclude Include="src\baseq2\m_hover.h" />
+    <ClInclude Include="src\baseq2\m_infantry.h" />
+    <ClInclude Include="src\baseq2\m_insane.h" />
+    <ClInclude Include="src\baseq2\m_medic.h" />
+    <ClInclude Include="src\baseq2\m_mutant.h" />
+    <ClInclude Include="src\baseq2\m_parasite.h" />
+    <ClInclude Include="src\baseq2\m_player.h" />
+    <ClInclude Include="src\baseq2\m_rider.h" />
+    <ClInclude Include="src\baseq2\m_soldier.h" />
+    <ClInclude Include="src\baseq2\m_supertank.h" />
+    <ClInclude Include="src\baseq2\m_tank.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\windows\res\baseq2.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\baseq2\game.def" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

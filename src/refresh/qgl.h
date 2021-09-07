@@ -20,11 +20,11 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define QGL_H
 
 #if USE_SDL
-#include <SDL_opengl.h>
-#else
+#include <SDL2/SDL_opengl.h>
+#endif
+
 #include <GL/gl.h>
 #include <GL/glext.h>
-#endif
 
 #ifndef QGLAPI
 #define QGLAPI extern

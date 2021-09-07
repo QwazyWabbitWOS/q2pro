@@ -47,9 +47,20 @@ static int PF_FindIndex(const char *name, int start, int max, const char *func)
         }
     }
 
-    if (i == max) {
-        Com_Error(ERR_DROP, "%s(%s): overflow", func, name);
+    // Knightmare- Output a more useful error message to tell user what overflowed.
+    // And don't bomb out, either- instead, return last possible index.
+    if (i == max)
+        //	Com_Error (ERR_DROP, "*Index: overflow");
+    {
+        if (start == CS_MODELS)
+            Com_Printf("Warning: Index overflow for models: %s\n", name);
+        else if (start == CS_SOUNDS)
+            Com_Printf("Warning: Index overflow for sounds: %s\n", name);
+        else if (start == CS_IMAGES)
+            Com_Printf("Warning: Index overflow for images: %s\n", name);
+        return (max - 1);	// return the last possible index
     }
+    // end Knightmare
 
     PF_configstring(i + start, name);
 

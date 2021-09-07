@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="src\common\bsp.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\net\chan.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\cmd.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\cmodel.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\commands.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\common.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\cvar.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\debug.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\entities.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\error.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\field.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\fifo.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\files.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\game.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\hunk.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\init.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\main.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\math.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\mdfour.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\msg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\net\net.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\null.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\pmove.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\prompt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\send.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shared\shared.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\sizebuf.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\system.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\user.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\utils.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\world.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\zone.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="inc\common\bsp.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\format\bsp.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\net\chan.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\common.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\field.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\cmodel.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\cmd.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\cvar.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\error.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\fifo.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\files.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\shared\game.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\system\hunk.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\shared\list.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\math.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\mdfour.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\msg.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\net\net.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\format\pak.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\shared\platform.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\pmove.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\prompt.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\protocol.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\server\mvd\protocol.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\server\server.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\server\server.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\shared\shared.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\sizebuf.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\system\system.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\tests.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\utils.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\common\net\win.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="inc\common\zone.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="src\windows\glimp.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Headers">
+      <UniqueIdentifier>{51d9f0cb-8ba8-4b23-86cb-8165368b3350}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{7f2582ed-2591-4de4-b760-9a51215b9cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{1c06b4a7-5688-4c48-909d-1533bc196b42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="src\windows\res\q2proded.rc">
+      <Filter>Resources</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>
