@@ -20,4 +20,5 @@ manuals available in doc/ subdirectory.
 
 This is a fork of Skuller's Q2PRO with VS2019 solution and project files.
 This fork depends on Microsoft's vcpkg collection being installed for development of the necessary dependencies.
-Special Note: VC\inc\readme.txt for information on how to use vcpkg.
+
+**Special Note:** refer to **VC\inc\readme.txt** for information on how to use vcpkg.
