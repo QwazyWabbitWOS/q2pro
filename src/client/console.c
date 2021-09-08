@@ -691,7 +691,7 @@ void Con_RegisterMedia(void)
             con.backImage = R_RegisterImage("conback", IT_PIC, IF_PERMANENT, &err);
         }
         if (!con.backImage) {
-            Com_EPrintf("Couldn't load pics/conback.pcx: %s\n", Q_ErrorString(err));
+            Com_EPrintf("Couldn't load console background (conback): %s\n", Q_ErrorString(err));
         }
     }
 }
