@@ -64,7 +64,6 @@ typedef __int32     ssize_t;
 #endif
 
 #pragma warning(disable:4018) // signed/unsigned mismatch
-#pragma warning(disable:4146) // unary minus operator applied to unsigned type, result still unsigned
 #pragma warning(disable:4244) // 'argument' : conversion from 'type1' to 'type2', possible loss of data
 #pragma warning(disable:4267) // 'var' : conversion from 'size_t' to 'type', possible loss of data
 #pragma warning(disable:4305) // truncation from 'type1' to 'type2'
