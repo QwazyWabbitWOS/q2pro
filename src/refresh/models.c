@@ -97,13 +97,13 @@ static void MOD_List_f(void)
         if (!model->type) {
             continue;
         }
-        Com_Printf("%c %8"PRIz" : %s\n", types[model->type],
+        Com_Printf("%c %8zu : %s\n", types[model->type],
                    model->hunk.mapped, model->name);
         bytes += model->hunk.mapped;
         count++;
     }
     Com_Printf("Total models: %d (out of %d slots)\n", count, r_numModels);
-    Com_Printf("Total resident: %"PRIz"\n", bytes);
+    Com_Printf("Total resident: %zu\n", bytes);
 }
 
 void MOD_FreeUnused(void)
@@ -498,7 +498,7 @@ static int MOD_LoadMD3Mesh(model_t *model, maliasmesh_t *mesh,
     QGL_INDEX_TYPE  *dst_idx;
     uint32_t        index;
     char            skinname[MAX_QPATH];
-    int             i;
+    int             i, j, k;
 
     if (length < sizeof(header))
         return Q_ERR_BAD_EXTENT;
@@ -553,15 +553,24 @@ static int MOD_LoadMD3Mesh(model_t *model, maliasmesh_t *mesh,
     // load all vertices
     src_vert = (dmd3vertex_t *)(rawdata + header.ofs_verts);
     dst_vert = mesh->verts;
-    for (i = 0; i < header.num_verts * model->numframes; i++) {
-        dst_vert->pos[0] = (int16_t)LittleShort(src_vert->point[0]);
-        dst_vert->pos[1] = (int16_t)LittleShort(src_vert->point[1]);
-        dst_vert->pos[2] = (int16_t)LittleShort(src_vert->point[2]);
+    for (i = 0; i < model->numframes; i++) {
+        maliasframe_t *f = &model->frames[i];
 
-        dst_vert->norm[0] = src_vert->norm[0];
-        dst_vert->norm[1] = src_vert->norm[1];
+        for (j = 0; j < header.num_verts; j++) {
+            dst_vert->pos[0] = (int16_t)LittleShort(src_vert->point[0]);
+            dst_vert->pos[1] = (int16_t)LittleShort(src_vert->point[1]);
+            dst_vert->pos[2] = (int16_t)LittleShort(src_vert->point[2]);
 
-        src_vert++; dst_vert++;
+            dst_vert->norm[0] = src_vert->norm[0];
+            dst_vert->norm[1] = src_vert->norm[1];
+
+            for (k = 0; k < 3; k++) {
+                f->bounds[0][k] = min(f->bounds[0][k], dst_vert->pos[k]);
+                f->bounds[1][k] = max(f->bounds[1][k], dst_vert->pos[k]);
+            }
+
+            src_vert++; dst_vert++;
+        }
     }
 
     // load all texture coords
@@ -636,9 +645,7 @@ static int MOD_LoadMD3(model_t *model, const void *rawdata, size_t length)
         LittleVector(src_frame->translate, dst_frame->translate);
         VectorSet(dst_frame->scale, MD3_XYZ_SCALE, MD3_XYZ_SCALE, MD3_XYZ_SCALE);
 
-        LittleVector(src_frame->mins, dst_frame->bounds[0]);
-        LittleVector(src_frame->maxs, dst_frame->bounds[1]);
-        dst_frame->radius = LittleFloat(src_frame->radius);
+        ClearBounds(dst_frame->bounds[0], dst_frame->bounds[1]);
 
         src_frame++; dst_frame++;
     }
@@ -652,6 +659,20 @@ static int MOD_LoadMD3(model_t *model, const void *rawdata, size_t length)
             goto fail;
         src_mesh += offset;
         remaining -= offset;
+    }
+
+    // calculate frame bounds
+    dst_frame = model->frames;
+    for (i = 0; i < header.num_frames; i++) {
+        VectorScale(dst_frame->bounds[0], MD3_XYZ_SCALE, dst_frame->bounds[0]);
+        VectorScale(dst_frame->bounds[1], MD3_XYZ_SCALE, dst_frame->bounds[1]);
+
+        dst_frame->radius = RadiusFromBounds(dst_frame->bounds[0], dst_frame->bounds[1]);
+
+        VectorAdd(dst_frame->bounds[0], dst_frame->translate, dst_frame->bounds[0]);
+        VectorAdd(dst_frame->bounds[1], dst_frame->translate, dst_frame->bounds[1]);
+
+        dst_frame++;
     }
 
     Hunk_End(&model->hunk);

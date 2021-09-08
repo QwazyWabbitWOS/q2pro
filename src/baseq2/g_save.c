@@ -436,7 +436,7 @@ static void write_data(void *buf, size_t len, FILE *f)
 {
     if (fwrite(buf, 1, len, f) != len) {
         fclose(f);
-        gi.error("%s: couldn't write %"PRIz" bytes", __func__, len);
+        gi.error("%s: couldn't write %zu bytes", __func__, len);
     }
 }
 
@@ -594,7 +594,7 @@ static void read_data(void *buf, size_t len, FILE *f)
 {
     if (fread(buf, 1, len, f) != len) {
         fclose(f);
-        gi.error("%s: couldn't read %"PRIz" bytes", __func__, len);
+        gi.error("%s: couldn't read %zu bytes", __func__, len);
     }
 }
 
@@ -787,7 +787,7 @@ static void read_fields(FILE *f, const save_field_t *fields, void *base)
 
 #define SAVE_MAGIC1     (('1'<<24)|('V'<<16)|('S'<<8)|'S')  // "SSV1"
 #define SAVE_MAGIC2     (('1'<<24)|('V'<<16)|('A'<<8)|'S')  // "SAV1"
-#define SAVE_VERSION    7
+#define SAVE_VERSION    8
 
 /*
 ============
