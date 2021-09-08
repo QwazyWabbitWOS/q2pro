@@ -11,6 +11,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "game", "game.vcxproj", "{3A
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7547940F-5AF5-4017-8557-68EA430C6D23}"
 	ProjectSection(SolutionItems) = preProject
+		VC\inc\config.h = VC\inc\config.h
 		Makefile = Makefile
 		VC\inc\README.txt = VC\inc\README.txt
 	EndProjectSection
