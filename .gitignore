@@ -7,3 +7,6 @@ Win32/
 /src/.vs/
 /ipch/
 *.sdf
+.baseq2/
+.q2pro/
+.q2proded/

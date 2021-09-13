@@ -2,100 +2,100 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="src\common\bsp.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\net\chan.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\cmd.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\cmodel.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\server\commands.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\common.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\cvar.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="src\windows\debug.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\server\entities.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\common\common.c">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\error.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\field.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\fifo.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\field.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\commands.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\debug.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\entities.c">
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\common\files.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\server\game.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\windows\hunk.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\server\init.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\server\main.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\common\math.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\mdfour.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\msg.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\net\net.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\client\null.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\client</Filter>
     </ClCompile>
     <ClCompile Include="src\common\pmove.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\prompt.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\server\send.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\shared\shared.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\shared</Filter>
     </ClCompile>
     <ClCompile Include="src\common\sizebuf.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\windows\system.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\server\user.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\common\utils.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\server\world.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
     <ClCompile Include="src\common\zone.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,9 +143,6 @@
     </ClInclude>
     <ClInclude Include="inc\common\math.h">
       <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="inc\common\mdfour.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="inc\common\msg.h">
       <Filter>Headers</Filter>
@@ -201,6 +198,9 @@
     <ClInclude Include="src\windows\glimp.h">
       <Filter>Headers</Filter>
     </ClInclude>
+    <ClInclude Include="inc\common\mdfour.h">
+      <Filter>Source Files\common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Headers">
@@ -211,6 +211,21 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{1c06b4a7-5688-4c48-909d-1533bc196b42}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{0a7beca1-422c-418e-be36-481ada8e0139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\server">
+      <UniqueIdentifier>{7fd52a5a-a3de-4ac8-a70e-53811867362c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\windows">
+      <UniqueIdentifier>{e65d4168-06a6-437b-aa01-f642fba9e480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\client">
+      <UniqueIdentifier>{302cc012-00f3-4400-9988-d8e4ecb1aa81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shared">
+      <UniqueIdentifier>{8bbbb2cf-b6ee-48cd-bfc7-fc077039efb4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -1,263 +1,263 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\client\sound\al.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\client\ascii.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\bsp.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\net\chan.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\client.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\common\cmd.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\client.c">
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\common\cmodel.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\common.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\console.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\crc.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\cvar.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\debug.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\demo.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\demos.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\sound\dma.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\download.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\draw.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\dsound.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\effects.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\entities.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\error.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\field.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\fifo.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\files.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\glimp.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\http.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\hunk.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\images.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\input.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\keys.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\locs.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\shared\m_flash.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\math.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\mdfour.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\sound\mem.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\menu.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\sound\mix.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\msg.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\models.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\net\net.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\newfx.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\parse.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\playerconfig.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\playermodels.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\pmove.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\precache.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\predict.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\prompt.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\refresh.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\screen.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\script.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\servers.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\shared\shared.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\sizebuf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\system.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\tent.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\ui\ui.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\utils.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\view.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\wave.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\wgl.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\common\zone.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\server\commands.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
-    <ClCompile Include="src\server\init.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\common\common.c">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
-    <ClCompile Include="src\client\sound\main.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\client\console.c">
+      <Filter>Source Files\client</Filter>
     </ClCompile>
-    <ClCompile Include="src\server\save.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\client\crc.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\cvar.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\debug.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\demo.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\demos.c">
+      <Filter>Source Files\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\download.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\draw.c">
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\dsound.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\effects.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\entities.c">
+      <Filter>Source Files\client</Filter>
     </ClCompile>
     <ClCompile Include="src\server\entities.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\error.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\fifo.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\field.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\files.c">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\server\game.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\server</Filter>
     </ClCompile>
-    <ClCompile Include="src\server\send.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\server\user.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\server\world.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\server\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\main.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\sky.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\world.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\surf.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\refresh\tess.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\sound\qal\dynamic.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\windows\glimp.c">
+      <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\hq2x.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\http.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\hunk.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\images.c">
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\init.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\input.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\keys.c">
+      <Filter>Source Files\client</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\legacy.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\locs.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\main.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\main.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\main.c">
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\math.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shared\m_flash.c">
+      <Filter>Source Files\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\mdfour.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\menu.c">
+      <Filter>Source Files\client\ui</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\mesh.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\models.c">
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\sound\al.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\sound\dma.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\sound\qal\dynamic.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\sound\main.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\sound\mem.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\sound\mix.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\msg.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\net\net.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\newfx.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\playerconfig.c">
+      <Filter>Source Files\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\parse.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\playermodels.c">
+      <Filter>Source Files\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\pmove.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\precache.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\predict.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\prompt.c">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\qgl.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\refresh.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\save.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\screen.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\script.c">
+      <Filter>Source Files\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\send.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\servers.c">
+      <Filter>Source Files\client\ui</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\shader.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\shared\shared.c">
+      <Filter>Source Files\shared</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\sizebuf.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\sky.c">
+      <Filter>Source Files\refresh</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\state.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\surf.c">
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\system.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\tent.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\tess.c">
+      <Filter>Source Files\refresh</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\texture.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\ui\ui.c">
+      <Filter>Source Files\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\user.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\utils.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\view.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\wave.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\windows\wgl.c">
+      <Filter>Source Files\windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\server\world.c">
+      <Filter>Source Files\server</Filter>
+    </ClCompile>
+    <ClCompile Include="src\refresh\world.c">
+      <Filter>Source Files\refresh</Filter>
+    </ClCompile>
+    <ClCompile Include="src\common\zone.c">
+      <Filter>Source Files\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,6 +418,30 @@
     </Filter>
     <Filter Include="Header Files">
       <UniqueIdentifier>{cfe8fe2e-4508-494e-bbb8-d2f616ae916e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\sound">
+      <UniqueIdentifier>{d704fb82-ed5f-48df-a869-76b9f99cccb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{3634483f-7081-4637-8245-261f45ea0ae1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\windows">
+      <UniqueIdentifier>{8bd2cc8f-baa6-4b44-b274-58a511980c80}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\server">
+      <UniqueIdentifier>{3c069410-74ee-4f80-8a45-4f9d752843ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\client">
+      <UniqueIdentifier>{3161f5b7-e7a0-4371-aacb-a3e676e8ff25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\client\ui">
+      <UniqueIdentifier>{bb2df334-224b-4b26-beb8-99a6365e87f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\refresh">
+      <UniqueIdentifier>{a629181a-e324-46c5-b7b6-7b35bdc687d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shared">
+      <UniqueIdentifier>{f7541272-ca20-425d-86ee-b250666b067f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
