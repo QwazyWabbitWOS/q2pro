@@ -29,6 +29,8 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 #define MOD_Malloc(size)    Hunk_Alloc(&model->hunk, size)
 
+#define CHECK(x)    if (!(x)) { ret = Q_ERR(ENOMEM); goto fail; }
+
 #if MAX_ALIAS_VERTS > TESS_MAX_VERTICES
 #error TESS_MAX_VERTICES
 #endif
@@ -143,6 +145,13 @@ void MOD_FreeAll(void)
     r_numModels = 0;
 }
 
+static void LittleBlock(void *out, const void *in, size_t size)
+{
+    memcpy(out, in, size);
+    for (int i = 0; i < size / 4; i++)
+        ((uint32_t *)out)[i] = LittleLong(((uint32_t *)out)[i]);
+}
+
 static int MOD_LoadSP2(model_t *model, const void *rawdata, size_t length)
 {
     dsp2header_t header;
@@ -155,10 +164,7 @@ static int MOD_LoadSP2(model_t *model, const void *rawdata, size_t length)
         return Q_ERR_FILE_TOO_SMALL;
 
     // byte swap the header
-    header = *(dsp2header_t *)rawdata;
-    for (i = 0; i < sizeof(header) / 4; i++) {
-        ((uint32_t *)&header)[i] = LittleLong(((uint32_t *)&header)[i]);
-    }
+    LittleBlock(&header, rawdata, sizeof(header));
 
     if (header.ident != SP2_IDENT)
         return Q_ERR_UNKNOWN_FORMAT;
@@ -174,7 +180,7 @@ static int MOD_LoadSP2(model_t *model, const void *rawdata, size_t length)
     if (sizeof(dsp2header_t) + sizeof(dsp2frame_t) * header.numframes > length)
         return Q_ERR_BAD_EXTENT;
 
-    Hunk_Begin(&model->hunk, 0x10000);
+    Hunk_Begin(&model->hunk, sizeof(mspriteframe_t) * header.numframes);
     model->type = MOD_SPRITE;
 
     model->spriteframes = MOD_Malloc(sizeof(mspriteframe_t) * header.numframes);
@@ -299,10 +305,7 @@ static int MOD_LoadMD2(model_t *model, const void *rawdata, size_t length)
     }
 
     // byte swap the header
-    header = *(dmd2header_t *)rawdata;
-    for (i = 0; i < sizeof(header) / 4; i++) {
-        ((uint32_t *)&header)[i] = LittleLong(((uint32_t *)&header)[i]);
-    }
+    LittleBlock(&header, rawdata, sizeof(header));
 
     // validate the header
     ret = MOD_ValidateMD2(&header, length);
@@ -377,17 +380,17 @@ static int MOD_LoadMD2(model_t *model, const void *rawdata, size_t length)
     model->type = MOD_ALIAS;
     model->nummeshes = 1;
     model->numframes = header.num_frames;
-    model->meshes = MOD_Malloc(sizeof(maliasmesh_t));
-    model->frames = MOD_Malloc(header.num_frames * sizeof(maliasframe_t));
+    CHECK(model->meshes = MOD_Malloc(sizeof(maliasmesh_t)));
+    CHECK(model->frames = MOD_Malloc(header.num_frames * sizeof(maliasframe_t)));
 
     dst_mesh = model->meshes;
     dst_mesh->numtris = numindices / 3;
     dst_mesh->numindices = numindices;
     dst_mesh->numverts = numverts;
     dst_mesh->numskins = header.num_skins;
-    dst_mesh->verts = MOD_Malloc(numverts * header.num_frames * sizeof(maliasvert_t));
-    dst_mesh->tcoords = MOD_Malloc(numverts * sizeof(maliastc_t));
-    dst_mesh->indices = MOD_Malloc(numindices * sizeof(QGL_INDEX_TYPE));
+    CHECK(dst_mesh->verts = MOD_Malloc(numverts * header.num_frames * sizeof(maliasvert_t)));
+    CHECK(dst_mesh->tcoords = MOD_Malloc(numverts * sizeof(maliastc_t)));
+    CHECK(dst_mesh->indices = MOD_Malloc(numindices * sizeof(QGL_INDEX_TYPE)));
 
     if (dst_mesh->numtris != header.num_tris) {
         Com_DPrintf("%s has %d bad triangles\n", model->name, header.num_tris - dst_mesh->numtris);
@@ -498,15 +501,13 @@ static int MOD_LoadMD3Mesh(model_t *model, maliasmesh_t *mesh,
     QGL_INDEX_TYPE  *dst_idx;
     uint32_t        index;
     char            skinname[MAX_QPATH];
-    int             i, j, k;
+    int             i, j, k, ret;
 
     if (length < sizeof(header))
         return Q_ERR_BAD_EXTENT;
 
     // byte swap the header
-    header = *(dmd3mesh_t *)rawdata;
-    for (i = 0; i < sizeof(header) / 4; i++)
-        ((uint32_t *)&header)[i] = LittleLong(((uint32_t *)&header)[i]);
+    LittleBlock(&header, rawdata, sizeof(header));
 
     if (header.meshsize < sizeof(header) || header.meshsize > length)
         return Q_ERR_BAD_EXTENT;
@@ -537,9 +538,9 @@ static int MOD_LoadMD3Mesh(model_t *model, maliasmesh_t *mesh,
     mesh->numindices = header.num_tris * 3;
     mesh->numverts = header.num_verts;
     mesh->numskins = header.num_skins;
-    mesh->verts = MOD_Malloc(sizeof(maliasvert_t) * header.num_verts * model->numframes);
-    mesh->tcoords = MOD_Malloc(sizeof(maliastc_t) * header.num_verts);
-    mesh->indices = MOD_Malloc(sizeof(QGL_INDEX_TYPE) * header.num_tris * 3);
+    CHECK(mesh->verts = MOD_Malloc(sizeof(maliasvert_t) * header.num_verts * model->numframes));
+    CHECK(mesh->tcoords = MOD_Malloc(sizeof(maliastc_t) * header.num_verts));
+    CHECK(mesh->indices = MOD_Malloc(sizeof(QGL_INDEX_TYPE) * header.num_tris * 3));
 
     // load all skins
     src_skin = (dmd3skin_t *)(rawdata + header.ofs_skins);
@@ -594,6 +595,9 @@ static int MOD_LoadMD3Mesh(model_t *model, maliasmesh_t *mesh,
 
     *offset_p = header.meshsize;
     return Q_ERR_SUCCESS;
+
+fail:
+    return ret;
 }
 
 static int MOD_LoadMD3(model_t *model, const void *rawdata, size_t length)
@@ -609,9 +613,7 @@ static int MOD_LoadMD3(model_t *model, const void *rawdata, size_t length)
         return Q_ERR_FILE_TOO_SMALL;
 
     // byte swap the header
-    header = *(dmd3header_t *)rawdata;
-    for (i = 0; i < sizeof(header) / 4; i++)
-        ((uint32_t *)&header)[i] = LittleLong(((uint32_t *)&header)[i]);
+    LittleBlock(&header, rawdata, sizeof(header));
 
     if (header.ident != MD3_IDENT)
         return Q_ERR_UNKNOWN_FORMAT;
@@ -635,8 +637,8 @@ static int MOD_LoadMD3(model_t *model, const void *rawdata, size_t length)
     model->type = MOD_ALIAS;
     model->numframes = header.num_frames;
     model->nummeshes = header.num_meshes;
-    model->meshes = MOD_Malloc(sizeof(maliasmesh_t) * header.num_meshes);
-    model->frames = MOD_Malloc(sizeof(maliasframe_t) * header.num_frames);
+    CHECK(model->meshes = MOD_Malloc(sizeof(maliasmesh_t) * header.num_meshes));
+    CHECK(model->frames = MOD_Malloc(sizeof(maliasframe_t) * header.num_frames));
 
     // load all frames
     src_frame = (dmd3frame_t *)((byte *)rawdata + header.ofs_frames);

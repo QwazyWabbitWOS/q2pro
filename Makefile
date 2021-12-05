@@ -32,10 +32,7 @@ RM ?= rm -f
 RMDIR ?= rm -rf
 MKDIR ?= mkdir -p
 
-CFLAGS ?= -std=gnu99 -O2 -Wall -g -MMD $(INCLUDES)
-RCFLAGS ?=
-LDFLAGS ?=
-LIBS ?=
+CFLAGS += -std=gnu99 -O2 -Wall -g -MMD $(INCLUDES)
 
 CFLAGS_s := -iquote./inc
 CFLAGS_c := -iquote./inc
@@ -50,13 +47,8 @@ LDFLAGS_c :=
 LDFLAGS_g := -shared
 
 ifdef CONFIG_WINDOWS
-    # Force i?86-netware calling convention on x86 Windows
-    ifeq ($(CPU),x86)
-        CONFIG_X86_GAME_ABI_HACK := y
-    else
-        CONFIG_X86_GAME_ABI_HACK :=
-        CONFIG_X86_NO_SSE_MATH := y
-    endif
+    # Workaround for MinGW-w64 < 8.0.0
+    CFLAGS += -D__USE_MINGW_ANSI_STDIO=1
 
     LDFLAGS_s += -mconsole
     LDFLAGS_c += -mwindows
@@ -74,13 +66,10 @@ ifdef CONFIG_WINDOWS
         LDFLAGS_s += -Wl,--pic-executable,--entry,_mainCRTStartup
         LDFLAGS_c += -Wl,--pic-executable,--entry,_WinMainCRTStartup
     endif
-else
-    # Disable x86 features on other arches
-    ifneq ($(CPU),i386)
-        CONFIG_X86_GAME_ABI_HACK :=
-        CONFIG_X86_NO_SSE_MATH := y
-    endif
 
+    # Workaround for GCC 10 linking shared libgcc by default
+    LDFLAGS_g += -static-libgcc
+else
     # Disable Linux features on other systems
     ifneq ($(SYS),Linux)
         CONFIG_NO_ICMP := y
@@ -99,6 +88,12 @@ else
     endif
 
     CFLAGS_g += -fPIC
+endif
+
+# Disable x86 features on other arches
+ifeq ($(filter x86 i386,$(CPU)),)
+    CONFIG_X86_GAME_ABI_HACK :=
+    CONFIG_X86_NO_SSE_MATH := y
 endif
 
 ifndef CONFIG_X86_NO_SSE_MATH
