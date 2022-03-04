@@ -42,3 +42,5 @@ git pull
 .\vcpkg.exe update
 .\vcpkg.exe upgrade --no-dry-run
 .\vcpkg.exe remove --outdated
+
+QwazyWabbit 2022
