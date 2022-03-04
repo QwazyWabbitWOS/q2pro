@@ -229,7 +229,7 @@ static int MOD_ValidateMD2(dmd2header_t *header, size_t length)
         return Q_ERR_TOO_MANY;
 
     end = header->ofs_tris + sizeof(dmd2triangle_t) * header->num_tris;
-    if (header->ofs_tris < sizeof(header) || end < header->ofs_tris || end > length)
+    if (header->ofs_tris < sizeof(*header) || end < header->ofs_tris || end > length)
         return Q_ERR_BAD_EXTENT;
 
     // check st
@@ -239,7 +239,7 @@ static int MOD_ValidateMD2(dmd2header_t *header, size_t length)
         return Q_ERR_TOO_MANY;
 
     end = header->ofs_st + sizeof(dmd2stvert_t) * header->num_st;
-    if (header->ofs_st < sizeof(header) || end < header->ofs_st || end > length)
+    if (header->ofs_st < sizeof(*header) || end < header->ofs_st || end > length)
         return Q_ERR_BAD_EXTENT;
 
     // check xyz and frames
@@ -257,7 +257,7 @@ static int MOD_ValidateMD2(dmd2header_t *header, size_t length)
         return Q_ERR_BAD_EXTENT;
 
     end = header->ofs_frames + (size_t)header->framesize * header->num_frames;
-    if (header->ofs_frames < sizeof(header) || end < header->ofs_frames || end > length)
+    if (header->ofs_frames < sizeof(*header) || end < header->ofs_frames || end > length)
         return Q_ERR_BAD_EXTENT;
 
     // check skins
@@ -266,7 +266,7 @@ static int MOD_ValidateMD2(dmd2header_t *header, size_t length)
             return Q_ERR_TOO_MANY;
 
         end = header->ofs_skins + (size_t)MD2_MAX_SKINNAME * header->num_skins;
-        if (header->ofs_skins < sizeof(header) || end < header->ofs_skins || end > length)
+        if (header->ofs_skins < sizeof(*header) || end < header->ofs_skins || end > length)
             return Q_ERR_BAD_EXTENT;
     }
 
@@ -549,6 +549,7 @@ static int MOD_LoadMD3Mesh(model_t *model, maliasmesh_t *mesh,
             return Q_ERR_STRING_TRUNCATED;
         FS_NormalizePath(skinname, skinname);
         mesh->skins[i] = IMG_Find(skinname, IT_SKIN, IF_NONE);
+        src_skin++;
     }
 
     // load all vertices
