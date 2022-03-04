@@ -904,7 +904,6 @@ static int my_png_read_header(png_structp png_ptr, png_infop info_ptr,
     my_png_error *err = png_get_error_ptr(png_ptr);
     png_uint_32 w, h, has_tRNS;
     int bitdepth, colortype;
-    int png_ext;
 
     if (setjmp(err->setjmp_buffer)) {
         return Q_ERR_LIBRARY_ERROR;
