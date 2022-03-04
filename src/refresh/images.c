@@ -21,7 +21,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 // images.c -- image reading and writing functions
 //
 
-
 #include "shared/shared.h"
 #include "common/common.h"
 #include "common/cvar.h"
@@ -30,7 +29,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "format/pcx.h"
 #include "format/wal.h"
 #include "images.h"
-#include "qgl.h"
 
 #if USE_PNG
 #define PNG_SKIP_SETJMP_CHECK
@@ -921,9 +919,8 @@ static int my_png_read_header(png_structp png_ptr, png_infop info_ptr,
     }
 
     // get max extents of allowable image
-    glGetIntegerv(GL_MAX_TEXTURE_SIZE, &png_ext);
-
-    if (w > png_ext || h > png_ext) {
+ 
+    if (w > MAX_TEXTURE_SIZE || h > MAX_TEXTURE_SIZE) {
         Com_DPrintf("%s: %s: invalid image dimensions\n", __func__, image->name);
         return Q_ERR_INVALID_FORMAT;
     }
