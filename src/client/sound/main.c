@@ -56,7 +56,7 @@ playsound_t s_pendingplays;
 
 cvar_t      *s_volume;
 cvar_t      *s_ambient;
-#ifdef _DEBUG
+#if USE_DEBUG
 cvar_t      *s_show;
 #endif
 
@@ -156,7 +156,7 @@ void S_Init(void)
 
     s_volume = Cvar_Get("s_volume", "0.7", CVAR_ARCHIVE);
     s_ambient = Cvar_Get("s_ambient", "1", 0);
-#ifdef _DEBUG
+#if USE_DEBUG
     s_show = Cvar_Get("s_show", "0", 0);
 #endif
     s_auto_focus = Cvar_Get("s_auto_focus", "0", 0);
@@ -400,7 +400,7 @@ qhandle_t S_RegisterSound(const char *name)
     } else {
         len = Q_concat(buffer, MAX_QPATH, "sound/", name);
         if (len < MAX_QPATH)
-            len = FS_NormalizePath(buffer, buffer);
+            len = FS_NormalizePath(buffer);
     }
 
     // this MAY happen after prepending "sound/"
@@ -454,13 +454,13 @@ static sfx_t *S_RegisterSexedSound(int entnum, const char *base)
         && Q_concat(buffer, MAX_QPATH, "players/", "male", "/", base + 1) >= MAX_QPATH)
         return NULL;
 
-    sfx = S_FindName(buffer, FS_NormalizePath(buffer, buffer));
+    sfx = S_FindName(buffer, FS_NormalizePath(buffer));
 
     // see if it exists
     if (sfx && !sfx->truename && !s_registering && !S_LoadSound(sfx)) {
         // no, revert to the male sound in the pak0.pak
         if (Q_concat(buffer, MAX_QPATH, "sound/player/male/", base + 1) < MAX_QPATH) {
-            FS_NormalizePath(buffer, buffer);
+            FS_NormalizePath(buffer);
             sfx->error = Q_ERR_SUCCESS;
             sfx->truename = S_CopyString(buffer);
         }
@@ -744,7 +744,7 @@ void S_IssuePlaysound(playsound_t *ps)
     channel_t   *ch;
     sfxcache_t  *sc;
 
-#ifdef _DEBUG
+#if USE_DEBUG
     if (s_show->integer)
         Com_Printf("Issue %i\n", ps->begin);
 #endif
@@ -876,7 +876,7 @@ void S_ParseStartSound(void)
     if (!handle)
         return;
 
-#ifdef _DEBUG
+#if USE_DEBUG
     if (developer->integer && !(snd.flags & SND_POS))
         CL_CheckEntityPresent(snd.entity, "sound");
 #endif
@@ -1124,7 +1124,7 @@ void S_Update(void)
     // add loopsounds
     S_AddLoopSounds();
 
-#ifdef _DEBUG
+#if USE_DEBUG
     //
     // debugging output
     //

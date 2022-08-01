@@ -16,7 +16,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 */
 
-#define _GNU_SOURCE
 #include "shared/shared.h"
 #include "system/hunk.h"
 #include <sys/mman.h>
@@ -51,7 +50,7 @@ void Hunk_Begin(memhunk_t *hunk, size_t maxsize)
     hunk->mapped = hunk->maxsize;
 }
 
-void *Hunk_Alloc(memhunk_t *hunk, size_t size)
+void *Hunk_TryAlloc(memhunk_t *hunk, size_t size)
 {
     void *buf;
 
@@ -72,6 +71,14 @@ void *Hunk_Alloc(memhunk_t *hunk, size_t size)
     return buf;
 }
 
+void *Hunk_Alloc(memhunk_t *hunk, size_t size)
+{
+    void *buf = Hunk_TryAlloc(hunk, size);
+    if (!buf)
+        Com_Error(ERR_FATAL, "%s: couldn't allocate %zu bytes", __func__, size);
+    return buf;
+}
+
 void Hunk_End(memhunk_t *hunk)
 {
     size_t newsize;
@@ -82,8 +89,10 @@ void Hunk_End(memhunk_t *hunk)
     newsize = ALIGN(hunk->cursize, pagesize);
 
     if (newsize < hunk->maxsize) {
-#ifdef __linux__
+#if defined(__linux__)
         void *buf = mremap(hunk->base, hunk->maxsize, newsize, 0);
+#elif defined(__NetBSD__)
+        void *buf = mremap(hunk->base, hunk->maxsize, NULL, newsize, 0);
 #else
         void *unmap_base = (byte *)hunk->base + newsize;
         size_t unmap_len = hunk->maxsize - newsize;

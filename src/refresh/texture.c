@@ -733,9 +733,6 @@ void IMG_Load(image_t *image, byte *pic)
         image->tl = 0;
         image->th = 1;
     }
-
-    // don't need pics in memory after GL upload
-    Z_Free(pic);
 }
 
 void IMG_Unload(image_t *image)
@@ -816,7 +813,8 @@ static void GL_BuildGammaTables(void)
 static void gl_gamma_changed(cvar_t *self)
 {
     GL_BuildGammaTables();
-    VID_UpdateGamma(gammatable);
+    if (vid.update_gamma)
+        vid.update_gamma(gammatable);
 }
 
 static const byte dottexture[8][8] = {
@@ -1045,7 +1043,7 @@ void GL_InitImages(void)
     GL_ShowErrors(__func__);
 }
 
-#ifdef _DEBUG
+#if USE_DEBUG
 extern image_t *r_charset;
 #endif
 
@@ -1068,7 +1066,7 @@ void GL_ShutdownImages(void)
     qglDeleteTextures(NUM_TEXNUMS, gl_static.texnums);
     qglDeleteTextures(LM_MAX_LIGHTMAPS, lm.texnums);
 
-#ifdef _DEBUG
+#if USE_DEBUG
     r_charset = NULL;
 #endif
 

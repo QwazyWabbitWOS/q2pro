@@ -50,7 +50,7 @@ static cvar_t *map_visibility_patch;
     static int BSP_Load##func(bsp_t *bsp, void *base, size_t count)
 
 #define DEBUG(msg) \
-    Com_DPrintf("%s: %s\n", __func__, msg)
+    Com_SetLastError(va("%s: %s", __func__, msg))
 
 LOAD(Visibility)
 {
@@ -755,12 +755,13 @@ typedef struct {
     int (*load)(bsp_t *, void *, size_t);
     uint8_t lump;
     uint8_t disksize;
-    uint16_t memsize;
+    uint8_t diskalign;
+    uint32_t memsize;
     uint32_t maxcount;
 } lump_info_t;
 
 #define L(func, lump, disk_t, mem_t) \
-    { BSP_Load##func, LUMP_##lump, sizeof(disk_t), sizeof(mem_t), MAX_MAP_##lump }
+    { BSP_Load##func, LUMP_##lump, sizeof(disk_t), q_alignof(disk_t), sizeof(mem_t), MAX_MAP_##lump }
 
 static const lump_info_t bsp_lumps[] = {
     L(Visibility,   VISIBILITY,     byte,           byte),
@@ -984,6 +985,11 @@ int BSP_Load(const char *name, bsp_t **bsp_p)
         return filelen;
     }
 
+    if (filelen < sizeof(dheader_t)) {
+        ret = Q_ERR_FILE_TOO_SMALL;
+        goto fail2;
+    }
+
     // byte swap and validate the header
     header = (dheader_t *)buf;
     if (LittleLong(header->ident) != IDBSPHEADER) {
@@ -1005,12 +1011,17 @@ int BSP_Load(const char *name, bsp_t **bsp_p)
             ret = Q_ERR_BAD_EXTENT;
             goto fail2;
         }
+        if (ofs % info->diskalign) {
+            ret = Q_ERR_BAD_ALIGN;
+            goto fail2;
+        }
         if (len % info->disksize) {
             ret = Q_ERR_ODD_SIZE;
             goto fail2;
         }
         count = len / info->disksize;
         if (count > info->maxcount) {
+            Com_SetLastError("Lump too big");
             ret = Q_ERR_TOO_MANY;
             goto fail2;
         }
@@ -1066,6 +1077,20 @@ fail1:
 fail2:
     FS_FreeFile(buf);
     return ret;
+}
+
+const char *BSP_ErrorString(int err)
+{
+    switch (err) {
+    case Q_ERR_INVALID_FORMAT:
+    case Q_ERR_TOO_MANY:
+    case Q_ERR_TOO_FEW:
+    case Q_ERR_BAD_INDEX:
+    case Q_ERR_INFINITE_LOOP:
+        return Com_GetLastError();
+    default:
+        return Q_ErrorString(err);
+    }
 }
 
 /*

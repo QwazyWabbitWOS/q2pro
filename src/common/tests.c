@@ -25,6 +25,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "common/tests.h"
 #include "refresh/refresh.h"
 #include "system/system.h"
+#include "client/sound/sound.h"
 
 // test error shutdown procedures
 static void Com_Error_f(void)
@@ -92,6 +93,14 @@ static void Com_Crash_f(void)
     }
 }
 
+static void Com_DoubleFree_f(void)
+{
+    void *p = malloc(64);
+    Com_PageInMemory(p, 64);
+    free(p);
+    free(p);
+}
+
 // use twice normal print buffer size to test for overflows, etc
 static void Com_PrintJunk_f(void)
 {
@@ -139,12 +148,11 @@ static void BSP_Test_f(void)
         name = list[i];
         ret = BSP_Load(name, &bsp);
         if (!bsp) {
-            Com_EPrintf("%s: %s\n", name, Q_ErrorString(ret));
+            Com_EPrintf("Couldn't load %s: %s\n", name, BSP_ErrorString(ret));
             errors++;
             continue;
         }
 
-        Com_DPrintf("%s: success\n", name);
         BSP_Free(bsp);
     }
 
@@ -262,20 +270,20 @@ static void Com_TestNorm_f(void)
 {
     const normtest_t *n;
     char buffer[MAX_QPATH];
-    int i, errors, pass;
+    int i, ret, errors, pass;
 
     for (pass = 0; pass < 2; pass++) {
         errors = 0;
         for (i = 0; i < numnormtests; i++) {
             n = &normtests[i];
             if (pass == 0) {
-                FS_NormalizePath(buffer, n->in);
+                ret = FS_NormalizePathBuffer(buffer, n->in, sizeof(buffer));
             } else {
                 // test in place operation
                 strcpy(buffer, n->in);
-                FS_NormalizePath(buffer, buffer);
+                ret = FS_NormalizePath(buffer);
             }
-            if (strcmp(n->out, buffer)) {
+            if (ret != strlen(n->out) || strcmp(n->out, buffer)) {
                 Com_EPrintf(
                     "FS_NormalizePath( \"%s\" ) == \"%s\", expected \"%s\" (pass %d)\n",
                     n->in, buffer, n->out, pass);
@@ -284,6 +292,13 @@ static void Com_TestNorm_f(void)
         }
         if (errors)
             break;
+    }
+
+    memset(buffer, 0, sizeof(buffer));
+    i = FS_NormalizePathBuffer(buffer, "foo/bar/baz", 8);
+    if (i != 8 || strcmp(buffer, "foo/bar")) {
+        Com_EPrintf("Overflow test failed");
+        errors++;
     }
 
     Com_Printf("%d failures, %d paths tested (%d passes)\n",
@@ -519,6 +534,46 @@ static void Com_TestModels_f(void)
 }
 #endif
 
+#if USE_CLIENT
+static void Com_TestSounds_f(void)
+{
+    void **list;
+    int i, count, errors;
+    unsigned start, end;
+
+    list = FS_ListFiles("sound", ".wav", FS_SEARCH_SAVEPATH, &count);
+    if (!list) {
+        Com_Printf("No sounds found\n");
+        return;
+    }
+
+    start = Sys_Milliseconds();
+
+    S_BeginRegistration();
+
+    errors = 0;
+    for (i = 0; i < count; i++) {
+        if (i > 0 && !(i & (MAX_SOUNDS - 1))) {
+            S_EndRegistration();
+            S_BeginRegistration();
+        }
+        if (!S_RegisterSound((char *)list[i] + 6)) {
+            errors++;
+            continue;
+        }
+    }
+
+    S_EndRegistration();
+
+    end = Sys_Milliseconds();
+
+    Com_Printf("%d msec, %d failures, %d sounds tested\n",
+               end - start, errors, count);
+
+    FS_FreeList(list);
+}
+#endif
+
 static const char *const mdfour_str[] = {
     "", "a", "abc", "message digest", "abcdefghijklmnopqrstuvwxyz",
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789",
@@ -601,12 +656,51 @@ static void Com_MdfourTest_f(void)
     Com_Printf("%d failures, %d strings tested\n", errors, tests);
 }
 
+typedef struct {
+    const char *ext;
+    const char *name;
+    bool result;
+} extcmptest_t;
+
+static const extcmptest_t extcmptests[] = {
+    { ".foo;.bar",          "test.bar",         true  },
+    { ".foo;.bar",          "test.FOO",         true  },
+    { ".foo;.bar",          "test.baz",         false },
+    { ".foo;.BAR;.baz;",    "test.bar",         true  },
+    { ".abc;.foo;.def",     "",                 false },
+    { "",                   "test",             true  },
+    { "",                   "test.foo",         true  },
+    { ".foo.bar",           "test.foo.bar",     true  },
+    { ".bar;;.baz",         "test",             true  },
+    { ";;;",                "test.foo",         true  },
+};
+
+static const int numextcmptests = q_countof(extcmptests);
+
+static void Com_ExtCmpTest_f(void)
+{
+    int errors = 0;
+
+    for (int i = 0; i < numextcmptests; i++) {
+        const extcmptest_t *t = &extcmptests[i];
+        bool res = FS_ExtCmp(t->ext, t->name);
+        if (res != t->result) {
+            Com_EPrintf("FS_ExtCmp(\"%s\", \"%s\") == %d, expected %d\n",
+                        t->ext, t->name, res, t->result);
+            errors++;
+        }
+    }
+
+    Com_Printf("%d failures, %d strings tested\n", errors, numextcmptests);
+}
+
 void TST_Init(void)
 {
     Cmd_AddCommand("error", Com_Error_f);
     Cmd_AddCommand("errordrop", Com_ErrorDrop_f);
     Cmd_AddCommand("freeze", Com_Freeze_f);
     Cmd_AddCommand("crash", Com_Crash_f);
+    Cmd_AddCommand("doublefree", Com_DoubleFree_f);
     Cmd_AddCommand("printjunk", Com_PrintJunk_f);
     Cmd_AddCommand("bsptest", BSP_Test_f);
     Cmd_AddCommand("wildtest", Com_TestWild_f);
@@ -616,5 +710,9 @@ void TST_Init(void)
 #if USE_REF
     Cmd_AddCommand("modeltest", Com_TestModels_f);
 #endif
+#if USE_CLIENT
+    Cmd_AddCommand("soundtest", Com_TestSounds_f);
+#endif
     Cmd_AddCommand("mdfourtest", Com_MdfourTest_f);
+    Cmd_AddCommand("extcmptest", Com_ExtCmpTest_f);
 }

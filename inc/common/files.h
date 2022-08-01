@@ -75,15 +75,7 @@ typedef struct file_info_s {
 #define FS_FLAG_TEXT            0x00000400
 #define FS_FLAG_DEFLATE         0x00000800
 
-//
-// Limit the maximum file size FS_LoadFile can handle, as a protection from
-// malicious paks causing memory exhaustion.
-//
-// Maximum size of legitimate BSP file on disk is ~12.7 MiB, let's round this
-// up to 16 MiB. Assume that no loadable Q2 resource should ever exceed this
-// limit.
-//
-#define MAX_LOADFILE            0x1000000
+#define MAX_LOADFILE            0x4001000   // 64 MiB + some slop
 
 #define FS_Malloc(size)         Z_TagMalloc(size, TAG_FILESYSTEM)
 #define FS_Mallocz(size)        Z_TagMallocz(size, TAG_FILESYSTEM)
@@ -159,8 +151,8 @@ void    **FS_CopyList(void **list, int count);
 file_info_t *FS_CopyInfo(const char *name, int64_t size, time_t ctime, time_t mtime);
 void    FS_FreeList(void **list);
 
-size_t FS_NormalizePath(char *out, const char *in);
 size_t FS_NormalizePathBuffer(char *out, const char *in, size_t size);
+#define FS_NormalizePath(path)  FS_NormalizePathBuffer(path, path, SIZE_MAX)
 
 #define PATH_INVALID        0
 #define PATH_VALID          1

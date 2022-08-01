@@ -32,6 +32,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #define MIN_CHANNELS 16
 
 static ALuint s_srcnums[MAX_CHANNELS];
+static ALboolean s_loop_points;
 static int s_framecount;
 
 void AL_SoundInfo(void)
@@ -77,6 +78,8 @@ bool AL_Init(void)
 
     s_numchannels = i;
 
+    s_loop_points = qalIsExtensionPresent("AL_SOFT_loop_points");
+
     Com_Printf("OpenAL initialized.\n");
     return true;
 
@@ -108,11 +111,6 @@ sfxcache_t *AL_UploadSfx(sfx_t *s)
     ALenum format = s_info.width == 2 ? AL_FORMAT_MONO16 : AL_FORMAT_MONO8;
     ALuint name;
 
-    if (!size) {
-        s->error = Q_ERR_TOO_FEW;
-        return NULL;
-    }
-
     qalGetError();
     qalGenBuffers(1, &name);
     qalBufferData(name, format, s_info.data, size, s_info.rate);
@@ -121,13 +119,11 @@ sfxcache_t *AL_UploadSfx(sfx_t *s)
         return NULL;
     }
 
-#if 0
     // specify OpenAL-Soft style loop points
-    if (s_info.loopstart > 0 && qalIsExtensionPresent("AL_SOFT_loop_points")) {
+    if (s_info.loopstart > 0 && s_loop_points) {
         ALint points[2] = { s_info.loopstart, s_info.samples };
         qalBufferiv(name, AL_LOOP_POINTS_SOFT, points);
     }
-#endif
 
     // allocate placeholder sfxcache
     sc = s->cache = S_Malloc(sizeof(*sc));
@@ -173,7 +169,7 @@ static void AL_Spatialize(channel_t *ch)
 
 void AL_StopChannel(channel_t *ch)
 {
-#ifdef _DEBUG
+#if USE_DEBUG
     if (s_show->integer > 1)
         Com_Printf("%s: %s\n", __func__, ch->sfx->name);
 #endif
@@ -188,7 +184,7 @@ void AL_PlayChannel(channel_t *ch)
 {
     sfxcache_t *sc = ch->sfx->cache;
 
-#ifdef _DEBUG
+#if USE_DEBUG
     if (s_show->integer > 1)
         Com_Printf("%s: %s\n", __func__, ch->sfx->name);
 #endif
@@ -196,7 +192,7 @@ void AL_PlayChannel(channel_t *ch)
     ch->srcnum = s_srcnums[ch - channels];
     qalGetError();
     qalSourcei(ch->srcnum, AL_BUFFER, sc->bufnum);
-    if (ch->autosound /*|| sc->loopstart >= 0*/) {
+    if (ch->autosound || (sc->loopstart >= 0 && s_loop_points)) {
         qalSourcei(ch->srcnum, AL_LOOPING, AL_TRUE);
     } else {
         qalSourcei(ch->srcnum, AL_LOOPING, AL_FALSE);
@@ -371,7 +367,7 @@ void AL_Update(void)
             }
         }
 
-#ifdef _DEBUG
+#if USE_DEBUG
         if (s_show->integer) {
             Com_Printf("%.1f %s\n", ch->master_vol, ch->sfx->name);
             //    total++;
