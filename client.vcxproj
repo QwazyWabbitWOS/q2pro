@@ -28,7 +28,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <CharacterSet>MultiByte</CharacterSet>
     <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
@@ -284,10 +283,11 @@
     <ClCompile Include="src\server\world.c" />
     <ClCompile Include="src\shared\m_flash.c" />
     <ClCompile Include="src\shared\shared.c" />
+    <ClCompile Include="src\unix\sound\sdl.c" />
+    <ClCompile Include="src\unix\video\sdl.c" />
     <ClCompile Include="src\windows\client.c" />
     <ClCompile Include="src\windows\debug.c" />
     <ClCompile Include="src\windows\dsound.c" />
-    <ClCompile Include="src\windows\glimp.c" />
     <ClCompile Include="src\windows\hunk.c" />
     <ClCompile Include="src\windows\system.c" />
     <ClCompile Include="src\windows\wave.c" />
@@ -333,6 +333,7 @@
     <ClInclude Include="inc\shared\shared.h" />
     <ClInclude Include="inc\system\hunk.h" />
     <ClInclude Include="inc\system\system.h" />
+    <ClInclude Include="src\client\client.h" />
     <ClInclude Include="src\client\sound\qal\dynamic.h" />
     <ClInclude Include="src\client\sound\sound.h" />
     <ClInclude Include="src\common\net\win.h" />

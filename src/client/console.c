@@ -685,10 +685,7 @@ void Con_RegisterMedia(void)
     if (!con.backImage) {
         if (strcmp(con_background->string, con_background->default_string)) {
             Cvar_Reset(con_background);
-            con.backImage = R_RegisterImage("conback", IT_PIC, IF_PERMANENT, &err);
-        }
-        if (!con.backImage) {
-            Com_EPrintf("Couldn't load console background (conback): %s\n", Q_ErrorString(err));
+            con.backImage = R_RegisterPic(con_background->default_string);
         }
     }
 }

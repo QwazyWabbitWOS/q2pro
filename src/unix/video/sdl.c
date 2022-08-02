@@ -33,7 +33,7 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 #include "refresh/refresh.h"
 #include "system/system.h"
 #include "../res/q2pro.xbm"
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 static SDL_Window       *sdl_window;
 static SDL_GLContext    *sdl_context;

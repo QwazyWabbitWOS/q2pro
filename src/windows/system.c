@@ -30,10 +30,6 @@ with this program; if not, write to the Free Software Foundation, Inc.,
 
 HINSTANCE                       hGlobalInstance;
 
-#if USE_DBGHELP
-LPTOP_LEVEL_EXCEPTION_FILTER    prevExceptionFilter;
-#endif
-
 static char                     currentDirectory[MAX_OSPATH];
 
 #if USE_WINSVC
@@ -46,12 +42,12 @@ static volatile bool            errorEntered;
 
 static LARGE_INTEGER            timer_freq;
 
-static cvar_t                   *sys_exitonerror;
+static cvar_t* sys_exitonerror;
 
-cvar_t  *sys_basedir;
-cvar_t  *sys_libdir;
-cvar_t  *sys_homedir;
-cvar_t  *sys_forcegamelib;
+cvar_t* sys_basedir;
+cvar_t* sys_libdir;
+cvar_t* sys_homedir;
+cvar_t* sys_forcegamelib;
 
 /*
 ===============================================================================
@@ -69,14 +65,14 @@ static HANDLE   hinput = INVALID_HANDLE_VALUE;
 static HANDLE   houtput = INVALID_HANDLE_VALUE;
 
 #if USE_CLIENT
-static cvar_t           *sys_viewlog;
+static cvar_t* sys_viewlog;
 #endif
 
 static commandPrompt_t  sys_con;
 static int              sys_hidden;
 static bool             gotConsole;
 
-static void write_console_data(void *data, size_t len)
+static void write_console_data(void* data, size_t len)
 {
     DWORD res;
     WriteFile(houtput, data, len, &res, NULL);
@@ -101,9 +97,9 @@ static void show_console_input(void)
     CONSOLE_SCREEN_BUFFER_INFO info;
 
     if (sys_hidden && !--sys_hidden && GetConsoleScreenBufferInfo(houtput, &info)) {
-        inputField_t *f = &sys_con.inputLine;
+        inputField_t* f = &sys_con.inputLine;
         size_t pos = f->cursorPos;
-        char *text = f->text;
+        char* text = f->text;
 
         // update line width after resize
         f->visibleChars = info.dwSize.X - 1;
@@ -116,13 +112,13 @@ static void show_console_input(void)
 
         size_t len = strlen(text);
         DWORD res, nch = min(len, f->visibleChars);
-        WriteConsoleOutputCharacterA(houtput,  "]",   1, (COORD){ 0, info.dwCursorPosition.Y }, &res);
-        WriteConsoleOutputCharacterA(houtput, text, nch, (COORD){ 1, info.dwCursorPosition.Y }, &res);
-        SetConsoleCursorPosition(houtput, (COORD){ pos + 1, info.dwCursorPosition.Y });
+        WriteConsoleOutputCharacterA(houtput, "]", 1, (COORD) { 0, info.dwCursorPosition.Y }, & res);
+        WriteConsoleOutputCharacterA(houtput, text, nch, (COORD) { 1, info.dwCursorPosition.Y }, & res);
+        SetConsoleCursorPosition(houtput, (COORD) { pos + 1, info.dwCursorPosition.Y });
     }
 }
 
-static void console_delete(inputField_t *f)
+static void console_delete(inputField_t* f)
 {
     if (f->text[f->cursorPos]) {
         hide_console_input();
@@ -131,7 +127,7 @@ static void console_delete(inputField_t *f)
     }
 }
 
-static void console_move_cursor(inputField_t *f, size_t pos)
+static void console_move_cursor(inputField_t* f, size_t pos)
 {
     size_t oldpos = f->cursorPos;
     f->cursorPos = pos = min(pos, f->maxChars - 1);
@@ -139,29 +135,30 @@ static void console_move_cursor(inputField_t *f, size_t pos)
     if (oldpos < f->visibleChars && pos < f->visibleChars) {
         CONSOLE_SCREEN_BUFFER_INFO info;
         if (GetConsoleScreenBufferInfo(houtput, &info)) {
-            SetConsoleCursorPosition(houtput, (COORD){ pos + 1, info.dwCursorPosition.Y });
+            SetConsoleCursorPosition(houtput, (COORD) { pos + 1, info.dwCursorPosition.Y });
         }
-    } else {
+    }
+    else {
         hide_console_input();
         show_console_input();
     }
 }
 
-static void console_move_right(inputField_t *f)
+static void console_move_right(inputField_t* f)
 {
     if (f->text[f->cursorPos] && f->cursorPos < f->maxChars - 1) {
         console_move_cursor(f, f->cursorPos + 1);
     }
 }
 
-static void console_move_left(inputField_t *f)
+static void console_move_left(inputField_t* f)
 {
     if (f->cursorPos > 0) {
         console_move_cursor(f, f->cursorPos - 1);
     }
 }
 
-static void console_replace_char(inputField_t *f, int ch)
+static void console_replace_char(inputField_t* f, int ch)
 {
     CONSOLE_SCREEN_BUFFER_INFO info;
     if (GetConsoleScreenBufferInfo(houtput, &info)) {
@@ -179,13 +176,13 @@ static void scroll_console_window(int key)
         int page = info.srWindow.Bottom - info.srWindow.Top + 1;
         int rows = 0;
         switch (key) {
-            case VK_HOME: rows = lo; break;
-            case VK_END:  rows = hi; break;
-            case VK_PRIOR: rows = max(-page, lo); break;
-            case VK_NEXT:  rows = min( page, hi); break;
+        case VK_HOME: rows = lo; break;
+        case VK_END:  rows = hi; break;
+        case VK_PRIOR: rows = max(-page, lo); break;
+        case VK_NEXT:  rows = min(page, hi); break;
         }
         if (rows)
-            SetConsoleWindowInfo(houtput, FALSE, &(SMALL_RECT){ .Top = rows, .Bottom = rows });
+            SetConsoleWindowInfo(houtput, FALSE, &(SMALL_RECT){.Top = rows, .Bottom = rows });
     }
 }
 
@@ -230,8 +227,8 @@ void Sys_RunConsole(void)
     int     ch;
     DWORD   numread, numevents;
     int     i;
-    inputField_t    *f = &sys_con.inputLine;
-    char    *s;
+    inputField_t* f = &sys_con.inputLine;
+    char* s;
 
     if (hinput == INVALID_HANDLE_VALUE) {
         return;
@@ -440,7 +437,8 @@ void Sys_RunConsole(void)
                     Sys_Printf("]%s\n", s);
                     Cbuf_AddText(&cmd_buffer, s);
                     Cbuf_AddText(&cmd_buffer, "\n");
-                } else {
+                }
+                else {
                     write_console_data("]\n", 2);
                 }
                 show_console_input();
@@ -451,7 +449,8 @@ void Sys_RunConsole(void)
                     if (f->text[f->cursorPos] == 0 && f->cursorPos < f->visibleChars) {
                         f->text[--f->cursorPos] = 0;
                         write_console_data("\b \b", 3);
-                    } else {
+                    }
+                    else {
                         hide_console_input();
                         memmove(f->text + f->cursorPos - 1, f->text + f->cursorPos, sizeof(f->text) - f->cursorPos);
                         f->cursorPos--;
@@ -496,12 +495,14 @@ void Sys_RunConsole(void)
                     console_replace_char(f, ch);
                     f->text[f->cursorPos + 0] = ch;
                     f->text[f->cursorPos + 1] = 0;
-                } else if (f->text[f->cursorPos] == 0 && f->cursorPos + 1 < f->visibleChars) {
-                    write_console_data((char []){ ch }, 1);
+                }
+                else if (f->text[f->cursorPos] == 0 && f->cursorPos + 1 < f->visibleChars) {
+                    write_console_data((char[]) { ch }, 1);
                     f->text[f->cursorPos + 0] = ch;
                     f->text[f->cursorPos + 1] = 0;
                     f->cursorPos++;
-                } else {
+                }
+                else {
                     hide_console_input();
                     memmove(f->text + f->cursorPos + 1, f->text + f->cursorPos, sizeof(f->text) - f->cursorPos - 1);
                     f->text[f->cursorPos++] = ch;
@@ -568,7 +569,7 @@ void Sys_SetConsoleColor(color_index_t color)
     }
 }
 
-static void write_console_output(const char *text)
+static void write_console_output(const char* text)
 {
     char    buf[MAXPRINTMSG];
     size_t  len;
@@ -591,7 +592,7 @@ Sys_ConsoleOutput
 Print text to the dedicated console
 ================
 */
-void Sys_ConsoleOutput(const char *text)
+void Sys_ConsoleOutput(const char* text)
 {
     if (houtput == INVALID_HANDLE_VALUE) {
         return;
@@ -603,7 +604,8 @@ void Sys_ConsoleOutput(const char *text)
 
     if (!gotConsole) {
         write_console_output(text);
-    } else {
+    }
+    else {
         static bool hack = false;
 
         if (!hack) {
@@ -620,7 +622,7 @@ void Sys_ConsoleOutput(const char *text)
     }
 }
 
-void Sys_SetConsoleTitle(const char *title)
+void Sys_SetConsoleTitle(const char* title)
 {
     if (gotConsole) {
         SetConsoleTitleA(title);
@@ -692,7 +694,7 @@ static void Sys_ConsoleInit(void)
     IF_Init(&sys_con.inputLine, width - 1, MAX_FIELD_TEXT - 1);
 
     Com_DPrintf("System console initialized (%d cols, %d rows).\n",
-                info.dwSize.X, info.dwSize.Y);
+        info.dwSize.X, info.dwSize.Y);
 }
 
 #endif // USE_SYSCON
@@ -713,12 +715,12 @@ static void Sys_InstallService_f(void)
     char serviceName[256];
     SC_HANDLE scm, service;
     DWORD length;
-    char *commandline;
+    char* commandline;
 
     if (Cmd_Argc() < 2) {
         Com_Printf("Usage: %s <servicename> [+command ...]\n"
-                   "Example: %s deathmatch +set net_port 27910 +map q2dm1\n",
-                   Cmd_Argv(0), Cmd_Argv(0));
+            "Example: %s deathmatch +set net_port 27910 +map q2dm1\n",
+            Cmd_Argv(0), Cmd_Argv(0));
         return;
     }
 
@@ -744,9 +746,9 @@ static void Sys_InstallService_f(void)
     strcpy(servicePath + length + 10, commandline);
 
     service = CreateServiceA(scm, serviceName, serviceName, SERVICE_START,
-                             SERVICE_WIN32_OWN_PROCESS, SERVICE_AUTO_START,
-                             SERVICE_ERROR_IGNORE, servicePath,
-                             NULL, NULL, NULL, NULL, NULL);
+        SERVICE_WIN32_OWN_PROCESS, SERVICE_AUTO_START,
+        SERVICE_ERROR_IGNORE, servicePath,
+        NULL, NULL, NULL, NULL, NULL);
     if (!service) {
         Com_EPrintf("Couldn't create service: %s\n", Sys_ErrorString(GetLastError()));
         goto fail;
@@ -786,7 +788,8 @@ static void Sys_DeleteService_f(void)
 
     if (!DeleteService(service)) {
         Com_EPrintf("Couldn't delete service: %s\n", Sys_ErrorString(GetLastError()));
-    } else {
+    }
+    else {
         Com_Printf("Service deleted successfully.\n");
     }
 
@@ -813,12 +816,12 @@ static bool work_terminate;
 static CRITICAL_SECTION work_crit;
 static HANDLE work_event;
 static HANDLE work_thread;
-static asyncwork_t *pend_head;
-static asyncwork_t *done_head;
+static asyncwork_t* pend_head;
+static asyncwork_t* done_head;
 
-static void append_work(asyncwork_t **head, asyncwork_t *work)
+static void append_work(asyncwork_t** head, asyncwork_t* work)
 {
-    asyncwork_t *c, **p;
+    asyncwork_t* c, ** p;
     for (p = head, c = *head; c; p = &c->next, c = c->next);
     work->next = NULL;
     *p = work;
@@ -826,7 +829,7 @@ static void append_work(asyncwork_t **head, asyncwork_t *work)
 
 static void complete_work(void)
 {
-    asyncwork_t *work, *next;
+    asyncwork_t* work, * next;
 
     if (!work_initialized)
         return;
@@ -855,7 +858,7 @@ static DWORD WINAPI thread_func(LPVOID arg)
             EnterCriticalSection(&work_crit);
         }
 
-        asyncwork_t *work = pend_head;
+        asyncwork_t* work = pend_head;
         if (!work)
             break;
         pend_head = work->next;
@@ -891,20 +894,16 @@ static void shutdown_work(void)
     work_initialized = false;
 }
 
-void Sys_QueueAsyncWork(asyncwork_t *work)
+void Sys_QueueAsyncWork(asyncwork_t* work)
 {
     if (!work_initialized) {
         InitializeCriticalSection(&work_crit);
         work_event = CreateEvent(NULL, FALSE, FALSE, NULL);
-        if (!work_event) {
+        if (!work_event)
             Sys_Error("Couldn't create async work event");
-            return;
-        }
         work_thread = CreateThread(NULL, 0, thread_func, NULL, 0, NULL);
-        if (!work_thread) {
+        if (!work_thread)
             Sys_Error("Couldn't create async work thread");
-            return;
-        }
         work_initialized = true;
     }
 
@@ -934,7 +933,7 @@ MISC
 Sys_Printf
 ================
 */
-void Sys_Printf(const char *fmt, ...)
+void Sys_Printf(const char* fmt, ...)
 {
     va_list     argptr;
     char        msg[MAXPRINTMSG];
@@ -952,7 +951,7 @@ void Sys_Printf(const char *fmt, ...)
 Sys_Error
 ================
 */
-void Sys_Error(const char *error, ...)
+void Sys_Error(const char* error, ...)
 {
     va_list     argptr;
     char        text[MAXERRORMSG];
@@ -970,8 +969,8 @@ void Sys_Error(const char *error, ...)
 #if USE_SYSCON
     Sys_SetConsoleColor(COLOR_RED);
     Sys_Printf("********************\n"
-               "FATAL: %s\n"
-               "********************\n", text);
+        "FATAL: %s\n"
+        "********************\n", text);
     Sys_SetConsoleColor(COLOR_NONE);
 #endif
 
@@ -1036,6 +1035,20 @@ void Sys_Sleep(int msec)
     Sleep(msec);
 }
 
+const char* Sys_ErrorString(int err)
+{
+    static char buf[256];
+
+    if (!FormatMessageA(FORMAT_MESSAGE_FROM_SYSTEM |
+        FORMAT_MESSAGE_IGNORE_INSERTS |
+        FORMAT_MESSAGE_MAX_WIDTH_MASK, NULL, err,
+        MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US),
+        buf, sizeof(buf), NULL))
+        Q_snprintf(buf, sizeof(buf), "unknown error %d", err);
+
+    return buf;
+}
+
 /*
 ================
 Sys_Init
@@ -1043,31 +1056,9 @@ Sys_Init
 */
 void Sys_Init(void)
 {
-#ifndef _WIN64
-    HMODULE module;
-    BOOL (WINAPI * pSetProcessDEPPolicy)(DWORD);
-#endif
-    cvar_t *var q_unused;
-
     // check windows version
-#if (_WIN32_WINNT >= _WIN32_WINNT_WIN8)
-    if (!IsWindowsXPOrGreater()) {
+    if (!IsWindowsXPOrGreater())
         Sys_Error(PRODUCT " requires Windows XP or greater");
-    }
-#else
-    OSVERSIONINFO vinfo;
-
-    vinfo.dwOSVersionInfoSize = sizeof(vinfo);
-    if (!GetVersionEx(&vinfo)) {
-        Sys_Error("Couldn't get OS info");
-    }
-    if (vinfo.dwPlatformId != VER_PLATFORM_WIN32_NT) {
-        Sys_Error(PRODUCT " requires Windows NT");
-    }
-    if (vinfo.dwMajorVersion < 5) {
-        Sys_Error(PRODUCT " requires Windows 2000 or greater");
-    }
-#endif
 
     if (!QueryPerformanceFrequency(&timer_freq))
         Sys_Error("QueryPerformanceFrequency failed");
@@ -1105,10 +1096,9 @@ void Sys_Init(void)
 
 #if USE_DBGHELP
     // install our exception filter
-    if (!var->integer) {
-        prevExceptionFilter = SetUnhandledExceptionFilter(
-                                  Sys_ExceptionFilter);
-    }
+    cvar_t* var = Cvar_Get("sys_disablecrashdump", "0", CVAR_NOSET);
+    if (!var->integer)
+        Sys_InstallExceptionFilter();
 #endif
 }
 
@@ -1120,24 +1110,24 @@ DLL LOADING
 ========================================================================
 */
 
-void Sys_FreeLibrary(void *handle)
+void Sys_FreeLibrary(void* handle)
 {
     if (handle && !FreeLibrary(handle)) {
         Com_Error(ERR_FATAL, "FreeLibrary failed on %p", handle);
     }
 }
 
-void *Sys_LoadLibrary(const char *path, const char *sym, void **handle)
+void* Sys_LoadLibrary(const char* path, const char* sym, void** handle)
 {
     HMODULE module;
-    void    *entry;
+    void* entry;
 
     *handle = NULL;
 
     module = LoadLibraryA(path);
     if (!module) {
         Com_SetLastError(va("%s: LoadLibrary failed: %s",
-                            path, Sys_ErrorString(GetLastError())));
+            path, Sys_ErrorString(GetLastError())));
         return NULL;
     }
 
@@ -1145,11 +1135,12 @@ void *Sys_LoadLibrary(const char *path, const char *sym, void **handle)
         entry = GetProcAddress(module, sym);
         if (!entry) {
             Com_SetLastError(va("%s: GetProcAddress(%s) failed: %s",
-                                path, sym, Sys_ErrorString(GetLastError())));
+                path, sym, Sys_ErrorString(GetLastError())));
             FreeLibrary(module);
             return NULL;
         }
-    } else {
+    }
+    else {
         entry = NULL;
     }
 
@@ -1157,14 +1148,14 @@ void *Sys_LoadLibrary(const char *path, const char *sym, void **handle)
     return entry;
 }
 
-void *Sys_GetProcAddress(void *handle, const char *sym)
+void* Sys_GetProcAddress(void* handle, const char* sym)
 {
-    void    *entry;
+    void* entry;
 
     entry = GetProcAddress(handle, sym);
     if (!entry)
         Com_SetLastError(va("GetProcAddress(%s) failed: %s",
-                            sym, Sys_ErrorString(GetLastError())));
+            sym, Sys_ErrorString(GetLastError())));
 
     return entry;
 }
@@ -1182,15 +1173,15 @@ FILESYSTEM
 Sys_ListFiles_r
 =================
 */
-void Sys_ListFiles_r(listfiles_t *list, const char *path, int depth)
+void Sys_ListFiles_r(listfiles_t* list, const char* path, int depth)
 {
     struct _finddatai64_t   data;
     intptr_t    handle;
-    char        fullpath[MAX_OSPATH], *name;
+    char        fullpath[MAX_OSPATH], * name;
     size_t      pathlen, len;
     unsigned    mask;
-    void        *info;
-    const char  *filter = list->filter;
+    void* info;
+    const char* filter = list->filter;
 
     // optimize single extension search
     if (!(list->flags & FS_SEARCH_BYFILTER) &&
@@ -1200,7 +1191,8 @@ void Sys_ListFiles_r(listfiles_t *list, const char *path, int depth)
         }
         len = Q_concat(fullpath, sizeof(fullpath), path, "\\*.", filter);
         filter = NULL; // do not check it later
-    } else {
+    }
+    else {
         len = Q_concat(fullpath, sizeof(fullpath), path, "\\*");
     }
 
@@ -1241,7 +1233,8 @@ void Sys_ListFiles_r(listfiles_t *list, const char *path, int depth)
 
         if (data.attrib & _A_SUBDIR) {
             mask = FS_SEARCH_DIRSONLY;
-        } else {
+        }
+        else {
             mask = 0;
         }
 
@@ -1267,7 +1260,8 @@ void Sys_ListFiles_r(listfiles_t *list, const char *path, int depth)
                 if (!FS_WildCmp(filter, fullpath + list->baselen)) {
                     continue;
                 }
-            } else {
+            }
+            else {
                 if (!FS_ExtCmp(filter, data.name)) {
                     continue;
                 }
@@ -1277,7 +1271,8 @@ void Sys_ListFiles_r(listfiles_t *list, const char *path, int depth)
         // strip path
         if (list->flags & FS_SEARCH_SAVEPATH) {
             name = fullpath + list->baselen;
-        } else {
+        }
+        else {
             name = data.name;
         }
 
@@ -1296,7 +1291,8 @@ void Sys_ListFiles_r(listfiles_t *list, const char *path, int depth)
         // copy info off
         if (list->flags & FS_SEARCH_EXTRAINFO) {
             info = FS_CopyInfo(name, data.size, data.time_create, data.time_write);
-        } else {
+        }
+        else {
             info = FS_CopyString(name);
         }
 
@@ -1317,7 +1313,7 @@ MAIN
 
 static BOOL fix_current_directory(void)
 {
-    char *p;
+    char* p;
 
     if (!GetModuleFileNameA(NULL, currentDirectory, sizeof(currentDirectory) - 1)) {
         return FALSE;
@@ -1335,13 +1331,13 @@ static BOOL fix_current_directory(void)
 }
 
 #if (_MSC_VER >= 1400)
-static void msvcrt_sucks(const wchar_t *expr, const wchar_t *func,
-                         const wchar_t *file, unsigned int line, uintptr_t unused)
+static void msvcrt_sucks(const wchar_t* expr, const wchar_t* func,
+    const wchar_t* file, unsigned int line, uintptr_t unused)
 {
 }
 #endif
 
-static int Sys_Main(int argc, char **argv)
+static int Sys_Main(int argc, char** argv)
 {
     // fix current directory to point to the basedir
     if (!fix_current_directory()) {
@@ -1379,7 +1375,7 @@ static int Sys_Main(int argc, char **argv)
 
 #define MAX_LINE_TOKENS    128
 
-static char     *sys_argv[MAX_LINE_TOKENS];
+static char* sys_argv[MAX_LINE_TOKENS];
 static int      sys_argc;
 
 /*
@@ -1388,7 +1384,7 @@ Sys_ParseCommandLine
 
 ===============
 */
-static void Sys_ParseCommandLine(char *line)
+static void Sys_ParseCommandLine(char* line)
 {
     sys_argc = 1;
     sys_argv[0] = APPLICATION;
@@ -1438,7 +1434,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 
 #if USE_WINSVC
 
-static char     **sys_argv;
+static char** sys_argv;
 static int      sys_argc;
 
 static void WINAPI ServiceHandler(DWORD fdwControl)
@@ -1448,7 +1444,7 @@ static void WINAPI ServiceHandler(DWORD fdwControl)
     }
 }
 
-static void WINAPI ServiceMain(DWORD argc, LPSTR *argv)
+static void WINAPI ServiceMain(DWORD argc, LPSTR* argv)
 {
     SERVICE_STATUS    status;
 
@@ -1483,7 +1479,7 @@ main
 
 ==================
 */
-int main(int argc, char **argv)
+int main(int argc, char** argv)
 {
     hGlobalInstance = GetModuleHandle(NULL);
 

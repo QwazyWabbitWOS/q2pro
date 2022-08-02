@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\client\ascii.c">
-      <Filter>Source Files\common</Filter>
-    </ClCompile>
     <ClCompile Include="src\common\bsp.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
@@ -24,9 +21,6 @@
     </ClCompile>
     <ClCompile Include="src\common\common.c">
       <Filter>Source Files\common</Filter>
-    </ClCompile>
-    <ClCompile Include="src\client\console.c">
-      <Filter>Source Files\client</Filter>
     </ClCompile>
     <ClCompile Include="src\client\crc.c">
       <Filter>Source Files\client</Filter>
@@ -75,9 +69,6 @@
     </ClCompile>
     <ClCompile Include="src\server\game.c">
       <Filter>Source Files\server</Filter>
-    </ClCompile>
-    <ClCompile Include="src\windows\glimp.c">
-      <Filter>Source Files\windows</Filter>
     </ClCompile>
     <ClCompile Include="src\refresh\hq2x.c">
       <Filter>Source Files\refresh</Filter>
@@ -259,6 +250,18 @@
     <ClCompile Include="src\common\zone.c">
       <Filter>Source Files\common</Filter>
     </ClCompile>
+    <ClCompile Include="src\client\ascii.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\client\console.c">
+      <Filter>Source Files\client</Filter>
+    </ClCompile>
+    <ClCompile Include="src\unix\video\sdl.c">
+      <Filter>Source Files\client\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\unix\sound\sdl.c">
+      <Filter>Source Files\sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc\common\bsp.h">
@@ -406,6 +409,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\windows\glimp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\client\client.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
