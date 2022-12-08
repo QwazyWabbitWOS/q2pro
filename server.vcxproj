@@ -61,12 +61,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\server\</IntDir>
     <TargetName>q2proded</TargetName>
-    <OutDir>$(Q2DIR)</OutDir>
+    <OutDir>$(Q2DIR)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>q2proded64</TargetName>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\server\</IntDir>
-    <OutDir>$(Q2DIR)</OutDir>
+    <OutDir>$(Q2DIR)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>

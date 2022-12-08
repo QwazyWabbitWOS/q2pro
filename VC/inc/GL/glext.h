@@ -31,7 +31,9 @@ extern "C" {
 /* Header file version number, required by OpenGL ABI for Linux */
 /* glext.h last updated $Date: 2012-09-19 19:02:24 -0700 (Wed, 19 Sep 2012) $ */
 /* Current version at http://www.opengl.org/registry/ */
-#define GL_GLEXT_VERSION 85
+#ifndef GL_GLEXT_VERSION
+  #define GL_GLEXT_VERSION 85
+#endif
 /* Function declaration macros - to move into glplatform.h */
 
 #if defined(_WIN32) && !defined(APIENTRY) && !defined(__CYGWIN__) && !defined(__SCITECH_SNAP__)
