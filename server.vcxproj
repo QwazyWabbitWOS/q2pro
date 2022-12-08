@@ -61,11 +61,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\server\</IntDir>
     <TargetName>q2proded</TargetName>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir>$(Q2DIR)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <TargetName>q2proded64</TargetName>
     <IntDir>$(SolutionDir)$(Platform)\$(Configuration)\server\</IntDir>
+    <OutDir>$(Q2DIR)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
@@ -75,6 +76,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <TargetName>q2proded64</TargetName>
     <IntDir>$(Configuration)\server\</IntDir>
+    <OutDir>$(Q2DIR)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -87,13 +89,13 @@
       <BrowseInformation>true</BrowseInformation>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
-      <AdditionalDependencies>jpeg.lib;libcurl-d.lib;libpng16d.lib;zlibd.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>jpeg.lib;libcurl.lib;libpng16.lib;zlib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <ResourceCompile>
@@ -107,7 +109,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_CRT_SECURE_NO_WARNINGS;HAVE_CONFIG_H=1</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\inc;.\VC\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\inc;.\VC\inc;$(_ZVcpkgCurrentInstalledDir)/include/glib-2.0;$(_ZVcpkgCurrentInstalledDir)/lib/glib-2.0/include</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>
       </DisableSpecificWarnings>
       <BrowseInformation>true</BrowseInformation>
@@ -120,7 +122,7 @@
       <SubSystem>Console</SubSystem>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
-      <AdditionalDependencies>jpeg.lib;libcurl-d.lib;libpng16d.lib;zlibd.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>jpeg.lib;libcurl.lib;libpng16.lib;zlib.lib;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
     <ResourceCompile>
@@ -252,7 +254,6 @@
     <ClInclude Include="inc\system\system.h" />
     <ClInclude Include="src\common\net\win.h" />
     <ClInclude Include="src\server\server.h" />
-    <ClInclude Include="src\windows\glimp.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="src\windows\res\q2proded.rc" />

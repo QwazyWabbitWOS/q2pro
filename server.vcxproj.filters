@@ -195,9 +195,6 @@
     <ClInclude Include="inc\common\zone.h">
       <Filter>Headers</Filter>
     </ClInclude>
-    <ClInclude Include="src\windows\glimp.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
     <ClInclude Include="inc\common\mdfour.h">
       <Filter>Source Files\common</Filter>
     </ClInclude>
